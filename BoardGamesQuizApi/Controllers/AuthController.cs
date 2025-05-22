@@ -9,7 +9,7 @@ namespace BoardGamesQuizApi.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly AuthService _service;
-    public AuthController(AuthService auth) => _service = auth;
+    public AuthController(AuthService service) => _service = service;
 
     [HttpPost("login")]
     public IActionResult Login([FromBody] LoginRequest dto)

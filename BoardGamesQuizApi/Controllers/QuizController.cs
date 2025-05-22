@@ -9,7 +9,7 @@ namespace BoardGamesQuizApi.Controllers;
 public class QuizzesController : ControllerBase
 {
     private readonly QuizService _service;
-    public QuizzesController(QuizService repo) => _service = repo;
+    public QuizzesController(QuizService service) => _service = service;
 
     [HttpGet("{id:int}")]
     public IActionResult GetQuiz(int id)

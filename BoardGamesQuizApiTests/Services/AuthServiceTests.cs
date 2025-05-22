@@ -10,16 +10,23 @@ namespace BoardGamesQuizApiTests.Services
     {
         private readonly AuthService _svc = new();
 
-        [Fact]
-        public void Login_ThrowsOnInvalid()
+        [Theory]
+        [InlineData("", "")]
+        [InlineData("panos", "wrongpass")]
+        [InlineData("PANOS", "199")]
+        [InlineData("panagiotisoikonomidis", "199")]
+        [InlineData("panos", "99")]
+        [InlineData("panos", "150")]
+        [InlineData("panss", "149")]
+        public void Login_ThrowsOnInvalid(string username, string password)
         {
-            var badDto = new LoginRequest
+            var dto = new LoginRequest
             {
-                Username = "bcdfg",
-                Password = "100"
+                Username = username,
+                Password = password
             };
 
-            Action act = () => _svc.Login(badDto);
+            Action act = () => _svc.Login(dto);
             act.Should().Throw<UnauthorizedAccessException>();
         }
 
@@ -28,8 +35,8 @@ namespace BoardGamesQuizApiTests.Services
         {
             var goodDto = new LoginRequest
             {
-                Username = "johnas",
-                Password = "199"
+                Username = "panos",
+                Password = "149"
             };
 
             var res = _svc.Login(goodDto);
